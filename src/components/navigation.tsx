@@ -29,9 +29,11 @@ function classNames(...classes: string[]) {
 export default function Navigation({
 	children,
 	current,
+	name,
 }: {
 	children: JSX.Element;
 	current: "dashboard" | "team" | "projects" | "calendar";
+	name?: string;
 }) {
 	return (
 		<>
@@ -227,7 +229,7 @@ export default function Navigation({
 					<header>
 						<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 							<h1 className="text-3xl font-bold leading-tight tracking-tight text-gray-900">
-								{navigation.find((a) => a.canonical == current)?.name}
+								{name ? name : navigation.find((a) => a.canonical == current)?.name}
 							</h1>
 						</div>
 					</header>
