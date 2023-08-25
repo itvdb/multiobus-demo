@@ -2,6 +2,7 @@ import Navigation from "@/components/navigation";
 import IAttachment from "@/types/attachment";
 import IFile from "@/types/file";
 import { DateTime } from "luxon";
+import Link from "next/link";
 
 async function loadData({
 	id,
@@ -36,38 +37,40 @@ export default async function Dashboard({
 	});
 
 	return (
-		<Navigation current="dashboard" name="Attachment">
+		<Navigation current="events" name="Attachment">
 			<>
+				<h2 className="text-sm font-medium text-gray-500">{`${attachment.identifier} - ${attachment.lastModified} - ${attachment.file}`}</h2>
 				<h1 className="text-lg py-4">
 					<span>
 						Event{" "}
-						<a
-							href={`/${params.id}`}
-							className="text-red-500 font-bold hover:underline"
+						<Link
+							href={`/lookup/${params.id}`}
+							className="text-indigo-500 font-bold hover:underline"
 						>
 							{params.id}
-						</a>{" "}
+						</Link>{" "}
 					</span>
 					{" > "}
 					<span>
 						Detour{" "}
-						<a
-							href={`/${params.id}/${params.detour}`}
-							className="text-red-500 font-bold hover:underline"
+						<Link
+							href={`/lookup/${params.id}/${params.detour}`}
+							className="text-indigo-500 font-bold hover:underline"
 						>
 							{params.detour}
-						</a>{" "}
+						</Link>{" "}
 					</span>
 					{" > "}
 					<span>Attachment {params.attachment}</span>
 				</h1>
 				<div className="flex flex-col max-w-5xl md:mx-auto mx-10">
-					<a
+					<Link
 						href={`data:application/pdf;base64,${attachment.data}`}
 						download={attachment.file}
+						className="border shadow rounded bg-indigo-500 text-white px-2 py-2 w-min hover:shadow-lg hover:bg-indigo-600"
 					>
-						TEST
-					</a>
+						Download
+					</Link>
 				</div>
 			</>
 		</Navigation>

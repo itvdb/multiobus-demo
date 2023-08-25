@@ -20,19 +20,24 @@ export default async function Dashboard({ params }: { params: { id: string } }) 
 	const events = await loadDisruptions({ id: params.id });
 
 	return (
-		<Navigation current="dashboard">
+		<Navigation current="events" name="Event">
 			<>
+				<h2 className="text-sm font-medium text-gray-500">{params.id}</h2>
 				<h1 className="text-lg py-4">
-					<a href="/" className="text-red-500 font-bold hover:underline">
+					<Link href="/" className="text-indigo-500 font-bold hover:underline">
 						Events
-					</a>
+					</Link>
 				</h1>
-				<div className="flex flex-col max-w-5xl md:mx-auto mx-10">
-					<h1>Event {params.id}</h1>
+				<div className="grid grid-cols-3 gap-2 max-w-5xl md:mx-auto mx-10">
 					{events.detours.map((d: IDetour) => (
-						<>
-							<Link href={`/${params.id}/${d.identifier}`}>{d.identifier}</Link>
-						</>
+						<Link
+							href={`/lookup/${params.id}/${d.identifier}`}
+							key={d.identifier}
+							className="shadow p-3 rounded border border-indigo-300 hover:shadow-indigo-300"
+						>
+							<p>{d.identifier}</p>
+							<p>{d.description}</p>
+						</Link>
 					))}
 				</div>
 			</>
