@@ -1,8 +1,9 @@
 import SimpleCards from "@/components/grids/SimpleCards";
 import Navigation from "@/components/navigation";
+import INetworkEvent from "@/types/networkevent";
 import { DateTime } from "luxon";
 
-async function loadDisruptions(): Promise<Array<any>> {
+async function loadDisruptions(): Promise<Array<INetworkEvent>> {
 	const httpHeaders = {
 		"Ocp-Apim-Subscription-Key": "5257bd9d29a841f28fa9768ffffa0b74",
 	};
@@ -11,14 +12,14 @@ async function loadDisruptions(): Promise<Array<any>> {
 		headers: myHeaders,
 		cache: "no-cache",
 	});
-	let data = await response.json();
-	let list = data.filter((a: any) => {
+	let data: Array<INetworkEvent> = await response.json();
+	let list = data.filter((a: INetworkEvent) => {
 		if (a.status === "Active") return true;
 		// if (a.modifiedOn >= DateTime.now().toFormat("yyyy-MM-dd")) return true;
 		return false;
 	});
-	data = list.map((d: any) => {
-		d.href = `/lookup/${d.identifier}`;
+	data = list.map((d: INetworkEvent) => {
+		d.href = `/${d.identifier}`;
 		switch (d.type) {
 			case "Event":
 				d.bgColor = "bg-green-500";

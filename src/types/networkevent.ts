@@ -14,4 +14,15 @@ export default interface INetworkEvent {
 	garages: Array<{ id: string }>;
 	intervals: Array<IInterval>;
 	notes: Array<INote>;
+
+	/**
+	 * CUSTOM ADDED
+	 * on page so only used in one place
+	 */
+	bgColor?: string;
+	/**
+	 * CUSTOM ADDED
+	 * on page so only used in one place
+	 */
+	href?: string;
 }
